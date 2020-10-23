@@ -1,0 +1,64 @@
+.content-container
+    margin: 15px 0
+    display: grid
+    grid-template-columns: repeat(3, 1fr)
+    grid-auto-rows: 20em
+    gap: 15px
+
+    .content-details
+        display: flex
+        flex-direction: column
+
+        >:first-child
+            text-align: center
+            margin-bottom: 10px
+
+        .content-header
+            background: var(--color-dark-grey)
+            max-height: 40px
+            height: 100%
+            color: #fafafa
+            padding: 6px 8px
+            letter-spacing: 1.5px
+            font-size: 0.7em
+            display: flex
+            justify-content: center
+            align-items: center
+
+            .link
+                cursor: pointer
+
+        .content-info
+            display: flex
+            width: 100%
+            flex-grow: 1
+            overflow-y: scroll
+
+            .synopsis
+                font-size: 11px
+                line-height: 1.5
+                margin-left: 10px
+                width: 100%
+
+            img
+                max-width: 100%
+                height: auto
+
+        .metadata
+            margin-top: 10px
+            display: flex
+            justify-content: space-between
+            font-size: 0.6em
+            padding: 6px 8px
+            color: #fafafa
+            background: var(--color-dark-grey)
+
+@media  (max-width: 1000px)
+    .content-container
+        display: grid
+        grid-template-columns: 1fr 1fr
+
+@media (max-width: 900px)
+    .content-container
+        display: grid
+        grid-template-columns: 1fr

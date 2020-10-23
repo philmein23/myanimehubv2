@@ -1,0 +1,14 @@
+.container
+    display: grid
+    grid-template-columns: 1fr min(75%, 1200px) 1fr
+
+    >*
+        grid-column: 2
+
+    .footer
+        grid-column: 1/-1
+        align-items: center
+        display: flex
+        justify-content: center
+        height: 10em
+        background: var(--color-dark-grey)
