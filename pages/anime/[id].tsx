@@ -39,7 +39,7 @@ const Content = ({ content }: ContentProps) => {
 export async function getStaticPaths() {
   return {
     paths: [{ params: { id: "*" } }],
-    fallback: false,
+    fallback: true,
   };
 }
 
