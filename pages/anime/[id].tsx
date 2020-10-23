@@ -39,14 +39,12 @@ const Content = ({ content }: ContentProps) => {
 export async function getStaticPaths() {
   return {
     paths: [{ params: { id: "*" } }],
-    fallback: true,
+    fallback: false,
   };
 }
 
 export async function getStaticProps(context) {
-  let response = await fetch(
-    `https://api.jikan.moe/v3/anime/${context.params.id}`
-  );
+  let response = await fetch(`https://api.jikan.moe/v3/anime/${context.params.id}`);
   let content = await response.json();
 
   return {
