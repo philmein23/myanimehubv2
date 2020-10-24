@@ -17,15 +17,15 @@ const Content = ({ content }: ContentProps) => {
   return (
     <section className={styles["content-grid"]}>
       <h1 className={styles["title"]}>{content.title}</h1>
-      <div>
+      <div className={styles["image-container"]}>
         <img src={content.image_url} alt={content.title} />
       </div>
       <div>
         <div className={styles["statistics"]}>
-          <span>Score {content.score}</span>
-          <span>Ranked {content.rank}</span>
+          <span>Score: {content.score}</span>
+          <span>Ranked: {content.rank}</span>
           <span>Popularity #{content.popularity}</span>
-          <span>Members {content.members}</span>
+          <span>Members: {content.members}</span>
         </div>
         <div>
           <h2 className={styles["synopsis-header"]}>Synopsis</h2>
@@ -44,7 +44,9 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  let response = await fetch(`https://api.jikan.moe/v3/anime/${context.params.id}`);
+  let response = await fetch(
+    `https://api.jikan.moe/v3/anime/${context.params.id}`
+  );
   let content = await response.json();
 
   return {
