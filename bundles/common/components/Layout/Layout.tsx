@@ -10,7 +10,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className={styles.container}>
-      <header>{<NavigationBar />}</header>
+      <header className={styles.navigation}>{<NavigationBar />}</header>
       <section>{<Search />}</section>
       <main>{children}</main>
       <footer className={styles.footer}>

@@ -16,9 +16,16 @@ type Props = PropsWithoutRef | PropsWithRef;
 const Input: React.FC<Props> = forwardRef<HTMLInputElement, Props>(
   ({ ...props }, ref?) => {
     return (
-      <label>
+      <>
+        <label
+          className={styles["screen-reader-text"]}
+          htmlFor="search-text"
+          id="search-text"
+        >
+          Search for...
+        </label>
         <input className={styles.input} ref={ref} {...props} />
-      </label>
+      </>
     );
   }
 );
