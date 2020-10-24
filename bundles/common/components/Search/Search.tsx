@@ -23,6 +23,7 @@ const Search: React.FC = () => {
       query: { q: encoded },
     };
 
+    setDropdownVisible(false);
     router.push(routeConfig);
   };
 
