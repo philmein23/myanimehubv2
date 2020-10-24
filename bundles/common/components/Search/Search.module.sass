@@ -1,8 +1,6 @@
 .searchbox
     position: relative
-
     .search
-        margin-top: 10px
         width: 100%
         display: flex
         justify-content: center
@@ -12,7 +10,7 @@
         display: none
 
     .search-result-dropdown
-        left: 30%
+        left: -15%
         position: absolute
         background: #FFF
         padding: 15px 10px
@@ -40,3 +38,10 @@
 
                 div + div
                     margin-top: 3px
+
+@media (max-width: 650px)
+    .searchbox
+        .search-result-dropdown
+            left: 0
+            right: 0
+            width: 100%
