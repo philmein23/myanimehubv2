@@ -23,8 +23,13 @@ const Search: React.FC = () => {
       query: { q: encoded },
     };
 
-    setDropdownVisible(false);
     router.push(routeConfig);
+    setDropdownVisible(false);
+  };
+
+  const onClickDropdownResult = (content: AnimeData) => {
+    router.replace(`/anime/${content.mal_id}`);
+    setDropdownVisible(false);
   };
 
   const fetchSearchDropdown = async (): Promise<any> => {
@@ -35,12 +40,8 @@ const Search: React.FC = () => {
     let json = await response.json();
 
     setDropdownData(json.results);
+    setCursor(null);
     json.results?.length ? setDropdownVisible(true) : setDropdownVisible(false);
-
-    if (dropdownIsVisible) {
-      console.log("set dropdown cursor to 0");
-      setCursor(null);
-    }
   };
 
   const onClickHandler = (e) => {
@@ -62,13 +63,28 @@ const Search: React.FC = () => {
     }
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: KeyboardEvent) => {
     if (!dropdownIsVisible) return;
-    if (e.keyCode === 38 && cursor > 0) {
+
+    if (e.key === "Enter") {
+      e.preventDefault();
+
+      if (cursor === null) {
+        onSearch(e);
+        return;
+      }
+
+      const content = data[cursor];
+
+      router.replace(`/anime/${content.mal_id}`);
+      setDropdownVisible(false);
+    }
+
+    if (e.key === "ArrowUp" && cursor > 0) {
       setCursor(cursor - 1);
     }
 
-    if (e.keyCode === 40 && cursor < data.slice(0, 10).length - 1) {
+    if (e.key === "ArrowDown" && cursor < data.slice(0, 10).length - 1) {
       if (cursor === null) {
         setCursor(0);
         return;
@@ -116,7 +132,7 @@ const Search: React.FC = () => {
         ref={dropdownRef}
         cursor={cursor}
         dropdownIsVisible={dropdownIsVisible}
-        router={router}
+        handleClickDropdownResult={onClickDropdownResult}
         data={data}
       />
     </section>
@@ -127,11 +143,11 @@ interface dropdownProps {
   data: AnimeData[];
   cursor: number;
   dropdownIsVisible: boolean;
-  router: NextRouter;
+  handleClickDropdownResult: (content: AnimeData) => void;
 }
 
 const DropdownResults = forwardRef<HTMLDivElement, dropdownProps>(
-  ({ data, dropdownIsVisible, router, cursor }, ref) => {
+  ({ data, dropdownIsVisible, handleClickDropdownResult, cursor }, ref) => {
     return (
       <div
         ref={ref}
@@ -144,7 +160,7 @@ const DropdownResults = forwardRef<HTMLDivElement, dropdownProps>(
         {data?.slice(0, 10).map((content: AnimeData, index: number) => (
           <span
             key={content.mal_id}
-            onClick={() => router.replace(`/anime/${content.mal_id}`)}
+            onClick={() => handleClickDropdownResult(content)}
           >
             <div
               className={`${styles["search-result-item"]} ${

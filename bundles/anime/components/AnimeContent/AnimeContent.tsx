@@ -34,7 +34,7 @@ const AnimeInfoCard: React.FC<AnimeInfoCardProps> = ({ anime }) => {
       <div className={styles.metadata}>
         <div>
           {format(
-            new Date(anime.start_date || anime.airing_start),
+            new Date(anime?.start_date || anime?.airing_start),
             "MMM-dd-yyyy"
           )}
         </div>
