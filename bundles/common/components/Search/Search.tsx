@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef, forwardRef } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { AnimeData } from "bundles/common/types";
 import { Input } from "bundles/common/components/Input";
@@ -63,7 +62,7 @@ const Search: React.FC = () => {
     }
   };
 
-  const handleKeyDown = (e: KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (!dropdownIsVisible) return;
 
     if (e.key === "Enter") {
