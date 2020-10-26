@@ -1,5 +1,7 @@
 import { GetServerSideProps, GetStaticProps } from "next";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import useSWR from "swr";
 import { AnimeContent } from "@bundles/anime/components/AnimeContent";
 import { AnimeData } from "@bundles/common/types";
 
@@ -57,7 +59,7 @@ function generatePageItems(
   }
 
   if (pageCount < width) {
-    return [...new Array(pageCount).keys()];
+    return [...new Array(pageCount).keys()].map((page) => page + 1);
   }
 
   const left = Math.max(
@@ -82,15 +84,21 @@ function generatePageItems(
   return items;
 }
 
-const GenrePage: React.FC<GenrePageProps> = ({
-  content,
-  mal_url,
-  item_count,
-  genreId,
-  currentPage,
-}) => {
-  const pageCount = Math.ceil(item_count / content.length);
-  const url = `/anime/genre/${genreId}`;
+const GenrePage: React.FC<GenrePageProps> = ({}) => {
+  const router = useRouter();
+  const uri = `https://api.jikan.moe/v3/genre/anime/${router.query.genreId}/${router.query.page}`;
+  const fetcher = (url) => fetch(url).then((response) => response.json());
+
+  const { data, error } = useSWR(uri, fetcher);
+  console.log(data);
+
+  if (!data) return <div>Loading...</div>;
+
+  const currentPage = router.query.page as string;
+
+  const pageCount = Math.ceil(data.item_count / data.anime.length);
+  const url = `/anime/genre/${router.query.genreId}`;
+
   return (
     <>
       <Pager
@@ -98,27 +106,10 @@ const GenrePage: React.FC<GenrePageProps> = ({
         pageCount={pageCount}
         currentPage={parseInt(currentPage)}
       >
-        <AnimeContent animeData={content} />
+        <AnimeContent animeData={data.anime} />
       </Pager>
     </>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  let response = await fetch(
-    `https://api.jikan.moe/v3/genre/anime/${context.params.genreId}/${context.query.page}`
-  );
-  let content = await response.json();
-
-  return {
-    props: {
-      item_count: content.item_count,
-      mal_url: content.mal_url,
-      content: content.anime,
-      genreId: context.params.genreId,
-      currentPage: context.query.page,
-    },
-  };
 };
 
 export default GenrePage;
