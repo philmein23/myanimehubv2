@@ -10,11 +10,12 @@
     "test": "jest"
   },
   "dependencies": {
+    "date-fns": "^2.16.1",
     "next": "9.5.5",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "sass": "^1.27.0",
-    "date-fns": "^2.16.1"
+    "swr": "^0.3.6"
   },
   "devDependencies": {
     "@testing-library/dom": "^7.26.3",

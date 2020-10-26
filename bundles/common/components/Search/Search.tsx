@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, forwardRef } from "react";
 import Link from "next/link";
-import { NextRouter, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { AnimeData } from "bundles/common/types";
 import { Input } from "bundles/common/components/Input";
 import { Button } from "bundles/common/components/Button";

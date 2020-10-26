@@ -46,11 +46,12 @@ function createGenreList(): GenreInfo[] {
   return Object.keys(Genre)
     .filter((val) => isNaN(Number(val)))
     .map((key) => {
-      if (key.includes("_")) {
-        key = key.replace(/_/g, " ");
+      let currentKey = key;
+      if (currentKey.includes("_")) {
+        currentKey = currentKey.replace(/_/g, " ");
       }
       return {
-        name: key,
+        name: currentKey,
         value: Genre[key],
       };
     });
