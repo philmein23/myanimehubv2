@@ -49,7 +49,7 @@ function AnimeContent({ animeData }: AnimeContentProps) {
   return (
     <section className={styles["content-container"]}>
       {animeData?.map((anime) => (
-        <AnimeInfoCard anime={anime} />
+        <AnimeInfoCard key={anime.mal_id} anime={anime} />
       ))}
     </section>
   );
