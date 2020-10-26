@@ -65,7 +65,7 @@ function generatePageItems(
   if (pageCount < width) {
     return [...new Array(pageCount).keys()].map((page) => page + 1);
   }
-
+  console.log(`Page count: ${pageCount}, current page: ${currentPage}`);
   const left = Math.max(
     1,
     Math.min(pageCount - width, currentPage - Math.floor(width / 2))

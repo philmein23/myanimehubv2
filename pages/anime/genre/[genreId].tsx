@@ -32,7 +32,7 @@ const GenrePage: React.FC<GenrePageProps> = ({}) => {
 
   const currentPage = router.query.page as string;
 
-  const pageCount = Math.ceil(data.item_count / data.anime.length);
+  const pageCount = Math.ceil(data.item_count / 100);
   const url = `/anime/genre/${router.query.genreId}`;
 
   return (
