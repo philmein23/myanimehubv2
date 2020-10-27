@@ -17,7 +17,7 @@ const AnimeSearchPage: React.FC = () => {
     searchAnimeContent();
   }, [router.query.q]);
 
-  return <AnimeContent animeData={animeData} />;
+  return <AnimeContent animeData={animeData} showPlaceholders={!animeData} />;
 };
 
 export default AnimeSearchPage;

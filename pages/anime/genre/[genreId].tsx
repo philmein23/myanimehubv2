@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { AnimeContent } from "@bundles/anime/components/AnimeContent";
