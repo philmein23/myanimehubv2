@@ -5,6 +5,7 @@ import styles from "./AnimeContent.module.sass";
 
 interface AnimeContentProps {
   animeData: [AnimeData];
+  showPlaceholders: boolean;
 }
 
 interface AnimeInfoCardProps {
@@ -45,12 +46,16 @@ const AnimeInfoCard: React.FC<AnimeInfoCardProps> = ({ anime }) => {
   );
 };
 
-function AnimeContent({ animeData }: AnimeContentProps) {
+function AnimeContent({ animeData, showPlaceholders }: AnimeContentProps) {
   return (
     <section className={styles["content-container"]}>
-      {animeData?.map((anime) => (
-        <AnimeInfoCard key={anime.mal_id} anime={anime} />
-      ))}
+      {showPlaceholders
+        ? [...new Array(100).keys()].map((_) => (
+            <section className={styles.placeholder}></section>
+          ))
+        : animeData.map((anime) => (
+            <AnimeInfoCard key={anime.mal_id} anime={anime} />
+          ))}
     </section>
   );
 }

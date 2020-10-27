@@ -22,17 +22,13 @@ interface GenrePageProps {
 const GenrePage: React.FC<GenrePageProps> = ({}) => {
   const router = useRouter();
   const uri = `https://api.jikan.moe/v3/genre/anime/${router.query.genreId}/${router.query.page}`;
-  console.log(`Genre: ${router.query.genreId} - Page: ${router.query.page}`);
   const fetcher = (url) => fetch(url).then((response) => response.json());
 
   const { data, error } = useSWR(uri, fetcher);
-  console.log(data);
-
-  if (!data) return <div>Loading...</div>;
 
   const currentPage = router.query.page as string;
 
-  const pageCount = Math.ceil(data.item_count / 100);
+  const pageCount = Math.ceil(data?.item_count / 100);
   const url = `/anime/genre/${router.query.genreId}`;
 
   return (
@@ -42,7 +38,7 @@ const GenrePage: React.FC<GenrePageProps> = ({}) => {
         pageCount={pageCount}
         currentPage={parseInt(currentPage)}
       >
-        <AnimeContent animeData={data.anime} />
+        <AnimeContent animeData={data?.anime} showPlaceholders={!data} />
       </Pager>
     </>
   );

@@ -1,4 +1,5 @@
-import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
+import useSWR from "swr";
 import { AnimeContent } from "@bundles/anime/components/AnimeContent";
 import { AnimeData } from "@bundles/common/types";
 
@@ -7,21 +8,12 @@ interface SeasonPageProps {
 }
 
 const SeasonPage: React.FC<SeasonPageProps> = ({ content }) => {
-  console.log(content);
-  return <AnimeContent animeData={content} />;
-};
+  const router = useRouter();
+  const uri = `https://api.jikan.moe/v3/season/${router.query.year}/${router.query.name}`;
+  const fetcher = (url) => fetch(url).then((response) => response.json());
+  const { data, error } = useSWR(uri, fetcher);
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  let response = await fetch(
-    `https://api.jikan.moe/v3/season/${context.params.year}/${context.params.name}`
-  );
-  let content = await response.json();
-
-  return {
-    props: {
-      content: content.anime,
-    },
-  };
+  return <AnimeContent animeData={data?.anime} showPlaceholders={!data} />;
 };
 
 export default SeasonPage;
