@@ -8,6 +8,15 @@
         text-align: center
         cursor: pointer
 
-        &:hover
-            background: var(--color-light-grey)
+    .pager-button + .pager-button
+        margin-left: 10px
+
+    .pager-button
+        background: none
+        border: 2px solid var(--color-white)
+        border-radius: 10px
+        color: var(--color-white)
+
+        &:hover, &.selected
+            background: var(--color-white)
             color: var(--color-dark)

@@ -37,15 +37,32 @@ const Pager: React.FC<PagerProps> = ({
     <>
       {children}
       <div className={styles["pager-controls"]}>
-        {pageIndex > 1 ? <button>Prev</button> : null}
+        {pageIndex > 1 ? (
+          <button
+            className={styles["pager-button"]}
+            onClick={() => setPageIndex(pageIndex - 1)}
+          >
+            Prev
+          </button>
+        ) : null}
 
-        {pageItems.map((pageItem) => (
-          <button onClick={() => setPageIndex(pageItem as number)}>
+        {pageItems.map((pageItem, index) => (
+          <button
+            className={`${styles["pager-button"]} ${
+              pageIndex === pageItem ? styles["selected"] : ""
+            }`}
+            onClick={() => setPageIndex(pageItem as number)}
+          >
             {pageItem}
           </button>
         ))}
         {pageIndex < pageCount ? (
-          <button onClick={() => setPageIndex(pageIndex + 1)}>Next</button>
+          <button
+            className={styles["pager-button"]}
+            onClick={() => setPageIndex(pageIndex + 1)}
+          >
+            Next
+          </button>
         ) : null}
       </div>
     </>
