@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+The main home page is still work-in-progress. However, you can start by searching for anime content by clicking on 'Anime' on the navigation bar, or by doing a global search. If you are unsure of any anime, then try to search for "Dragon Ball Z".
 
 ## Getting Started
 
