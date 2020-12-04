@@ -1,5 +1,7 @@
 The main home page is still work-in-progress. However, you can start by searching for anime content by clicking on 'Anime' on the navigation bar, or by doing a global search. If you are unsure of any anime, then try to search for "Dragon Ball Z".
 
+http://myanimehubv2.vercel.app/
+
 ## Getting Started
 
 First, run the development server:
